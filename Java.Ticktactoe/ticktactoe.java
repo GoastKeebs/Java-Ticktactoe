@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class TickTacToe {
+public class ticktactoe {
 
     static ArrayList<Integer> playerPositions = new ArrayList<Integer>();
     static ArrayList<Integer> cpuPositions = new ArrayList<Integer>();
@@ -30,19 +30,28 @@ public class TickTacToe {
             
             placePiece(gameBoard, playerPos, "player");
 
+            String result = checkWinner();
+            if(result.length() > 0) {
+                System.out.println(result);
+                break;
+            }
+
 
             Random rand = new Random();
             int cpuPos = rand.nextInt(9) + 1;
             while(playerPositions.contains(cpuPos) || cpuPositions.contains(cpuPos)) {
-                cpuPos = rand.nextInt();
+                cpuPos = rand.nextInt(9) + 1;
             }
 
             placePiece(gameBoard, cpuPos, "cpu");
 
             printGameBoard(gameBoard);
 
-            String result = checkWinner();
-            System.out.println(result);
+            result = checkWinner();
+            if(result.length() > 0) {
+                System.out.println(result);
+                break;
+            }
         }
 
     }
@@ -125,7 +134,7 @@ public class TickTacToe {
         for(List l : winning) {
             if(playerPositions.containsAll(l)) {
                 return "My G you won!";
-            }else if(cpuPositions.containsALl(l)) {
+            }else if(cpuPositions.containsAll(l)) {
                 return "You let a computer beat you damn homie!";
             }else if(playerPositions.size() + cpuPositions.size() == 9) {
                 return "BOOMA TIE";
